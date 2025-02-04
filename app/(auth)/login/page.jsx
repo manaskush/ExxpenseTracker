@@ -11,8 +11,11 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post('/api/auth/login', { email, password });
-      if (response.data) {
+      if (response.data ) {
         router.push('/dashboard');
+      }
+      else{
+        console.log("Login failed:", response);
       }
     } catch (error) {
       console.error('Login failed:', error);
@@ -40,14 +43,14 @@ const Login = () => {
           />
           <button
             onClick={handleLogin}
-            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+            className="w-full bg-violet-500 text-white p-2 rounded hover:bg-violet-600"
           >
             Login
           </button>
         </div>
         <p className="mt-4 text-center">
           Don't have an account?{' '}
-          <a href="/register" className="text-blue-500 hover:underline">
+          <a href="/register" className="text-violet-500 hover:underline">
             Register here
           </a>
         </p>

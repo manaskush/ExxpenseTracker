@@ -1,9 +1,16 @@
 import jwt from 'jsonwebtoken';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 
 export async function GET() {
-  const cookieStore = cookies();
-  const token = cookieStore.get('token')?.value;
+  const requestHeaders = await headers(); // ✅ Await headers()
+
+  const cookieHeader = requestHeaders.get('cookie'); // Get cookie header
+  if (!cookieHeader) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });
+  }
+
+  // Extract token manually
+  const token = cookieHeader.split('token=')[1]?.split(';')[0];
 
   if (!token) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 401 });

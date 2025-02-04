@@ -16,6 +16,7 @@ const ExpenseForm = ({ fetchExpenses }) => {
       // Fetch the userId from the JWT token (stored in cookies)
       const response = await axios.get('/api/auth/me', { withCredentials: true });
       const userId = response.data.userId;
+      
 
       // Add the expense with the userId
       await axios.post(
@@ -29,6 +30,7 @@ const ExpenseForm = ({ fetchExpenses }) => {
         },
         { withCredentials: true }
       );
+      alert("ADDED")
 
       fetchExpenses(); // Refresh the expense list
       setAmount('');

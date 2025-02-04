@@ -14,10 +14,20 @@ const Dashboard = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post('/api/auth/logout', {}, { withCredentials: true });
+      if (response.data.success) {
+        router.push('/login'); // Redirect to the login page
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
   const fetchExpenses = async (page = 1, limit = 10, category = '', startDate = '', endDate = '') => {
     try {
-      const response = await axios.get(`/api/expenses?page=${page}&limit=${limit}&category=${category}&startDate=${startDate}&endDate=${endDate}`, { withCredentials: true });
-      setExpenses(response.data);
+      // const response = await axios.get(/api/expenses?page=${page}&limit=${limit}&category=${category}&startDate=${startDate}&endDate=${endDate}, { withCredentials: true });
+      // setExpenses(response.data);
     } catch (error) {
       console.error('Error fetching expenses:', error);
     }
@@ -25,8 +35,8 @@ const Dashboard = () => {
 
   const fetchInsights = async () => {
     try {
-      const response = await axios.get('/api/insights', { withCredentials: true });
-      setInsights(response.data);
+      // const response = await axios.get('/api/insights', { withCredentials: true });
+      // setInsights(response.data);
     } catch (error) {
       console.error('Error fetching insights:', error);
     }
